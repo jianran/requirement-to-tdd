@@ -22,4 +22,5 @@ It is not a Python library package. It helps an agent:
 2. Use the `skills/requirement-skill/SKILL.md` file for instruction when implementing requirement-related features.
 3. Use `skills/requirement-skill/references/test-design.md` when the requirement needs decomposition or a clearer coverage map.
 4. Use `skills/requirement-skill/references/complex-features.md` when the feature spans multiple modules, boundaries, or delivery steps.
-5. Prefer test-first development: write the tests that capture the next useful behavior before editing runtime code.
+5. Use `skills/requirement-skill/references/system-design.md` when designing system interactive flows and API specifications.
+6. Prefer test-first development: write the tests that capture the next useful behavior before editing runtime code.

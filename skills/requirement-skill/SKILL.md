@@ -39,6 +39,7 @@ Use this skill to convert a requirement into verified code changes with a test-f
    - Specify integration points with external systems, databases, or third-party services.
    - Document state transitions, business rules, and edge cases in the API design.
    - Ensure the design supports the clarified UX flow and technology decisions from the previous step.
+   - See `references/system-design.md` for detailed guidance on system flow and API specification design.
    - Search for requirement-related modules, classes, tests, fixtures, APIs, schemas, and terminology already used by the codebase.
    - Prefer extending existing domain models, validators, services, handlers, repositories, or workflows over introducing new abstractions.
    - Add a new type only when the behavior does not fit an existing seam cleanly.
