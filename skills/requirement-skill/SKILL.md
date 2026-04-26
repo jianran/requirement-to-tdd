@@ -35,7 +35,12 @@ Use this skill when the task involves requirement-related classes, modules, or p
    - Use the existing class names and method names where possible.
    - Keep test cases focused on the feature and edge cases.
 
-5. **Implement only what the tests require**
+5. **Check requirement coverage and enrich tests**
+   - After writing initial tests, review if all requirement aspects are covered by TDD.
+   - If more test data or edge cases are needed for complete coverage, request to enrich the unit tests.
+   - Ensure tests cover all stated requirements before proceeding to implementation.
+
+6. **Implement only what the tests require**
    - Avoid adding unrelated helpers or abstractions.
    - Match the project's existing style.
    - Keep the diff minimal and verifiable.
@@ -51,7 +56,9 @@ For a new feature that ingests requirement text and stores it:
    - rejecting invalid requirement format
    - preventing duplicate requirement titles
    - storing parsed requirements and listing them
-4. Implement the feature to make those tests pass.
+4. Check if all requirement aspects are covered by the tests.
+5. If more test data is needed, request to enrich the unit tests with additional scenarios.
+6. Implement the feature to make those tests pass.
 
 ## Skill rules
 
@@ -59,3 +66,5 @@ For a new feature that ingests requirement text and stores it:
 - Prefer documentation and instructions that map directly to the code changes.
 - Do not rewrite unrelated code or add abstractions beyond the feature.
 - Ask clarifying questions if the codebase already contains requirement-related classes but their intended use is ambiguous.
+- Always check if all requirements are covered by TDD before implementation.
+- Request to enrich unit tests if more data or edge cases are needed for complete coverage.
