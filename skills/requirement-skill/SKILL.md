@@ -1,70 +1,66 @@
 ---
-name: requirement-to-ddd-skill
-description: A Claude skill for requirement-related development tasks. Use this skill when adding or improving requirement parsing, validation, repository storage, or requirement-driven features.
-license: MIT
+name: requirement-to-tdd
+description: Turn requirements, specs, PRDs, issues, or feature requests into a disciplined TDD workflow. Use when an agent needs to locate requirement-related code, clarify acceptance criteria, map requirements to tests, write failing tests first, and implement the smallest change that satisfies the requirement.
 ---
 
-# Requirement Development Skill
+# Requirement to TDD
 
-Use this skill when the task involves requirement-related classes, modules, or package structure. The goal is to implement or extend requirement behavior using a test-first workflow.
+Use this skill to convert a requirement into verified code changes with a test-first workflow.
 
-## When to use
+## Follow this workflow
 
-- You need to locate requirement-related modules or packages in an existing codebase.
-- You need to identify existing domain classes like `Requirement`, `RequirementRepository`, `RequirementParser`, or equivalent.
-- A new feature requires a new class or domain object.
-- You must write unit tests before making implementation changes.
+1. **Normalize the requirement**
+   - Restate the requested behavior in concrete terms.
+   - Separate confirmed facts, assumptions, and open questions.
+   - Treat each explicit rule, constraint, or acceptance criterion as something that must be covered by tests.
+   - If ambiguity is blocking, ask a focused question. If it is not blocking, proceed with the smallest reasonable assumption and state it.
 
-## What to do
+2. **Find the existing implementation seam**
+   - Search for requirement-related modules, classes, tests, fixtures, or terminology already used by the codebase.
+   - Prefer extending existing `Requirement`, `RequirementParser`, `RequirementRepository`, validators, services, or handlers over introducing new abstractions.
+   - Add a new type only when the behavior does not fit an existing seam cleanly.
 
-1. **Locate the requirement module/package**
-   - Search the repository for `Requirement`, `requirement`, `requirements`, or `parser`.
-   - Identify which files currently define requirement models or storage behavior.
+3. **Design the thinnest useful test slice**
+   - Choose the lowest test layer that proves the behavior: unit first, then integration, then end-to-end only if needed.
+   - Convert the requirement into a short coverage map before coding.
+   - Ensure every `must`, `should`, validation rule, state change, and failure mode has a corresponding planned test.
+   - See `references/test-design.md` for decomposition and coverage patterns.
 
-2. **Inspect existing classes and behavior**
-   - If there is a `Requirement` class, inspect its fields and validation rules.
-   - If there is a repository or parser class, understand its purpose and public methods.
+4. **Write failing tests first**
+   - Add tests that describe the requested behavior before changing production code.
+   - Cover happy path, edge cases, invalid input, and duplicate/idempotency behavior when relevant.
+   - Keep tests small, named by behavior, and aligned with existing project conventions.
 
-3. **Determine if a new class is needed**
-   - If the new feature requires parsing structured text, add or extend a parser class.
-   - If the feature requires storage, filtering, listing, or duplicate prevention, add or extend a repository class.
-   - Keep existing classes intact unless the feature requires small, surgical changes.
+5. **Implement the minimum change**
+   - Change only the code needed to make the new tests pass.
+   - Avoid speculative abstractions, broad rewrites, or package restructuring unless the requirement explicitly needs them.
+   - Preserve existing public APIs unless the requirement calls for a change.
 
-4. **Write unit tests first**
-   - Create tests that describe the new behavior before implementing it.
-   - Use the existing class names and method names where possible.
-   - Keep test cases focused on the feature and edge cases.
+6. **Refactor without losing coverage**
+   - Clean duplication only after tests pass.
+   - Keep the diff narrow and easy to review.
+   - Re-run the most relevant tests after each meaningful refactor.
 
-5. **Check requirement coverage and enrich tests**
-   - After writing initial tests, review if all requirement aspects are covered by TDD.
-   - If more test data or edge cases are needed for complete coverage, request to enrich the unit tests.
-   - Ensure tests cover all stated requirements before proceeding to implementation.
+7. **Prove requirement coverage**
+   - Report which requirement clauses are covered by which tests.
+   - Call out remaining assumptions, uncovered gaps, or follow-up tests explicitly.
+   - If the requirement changed during implementation, say so plainly.
 
-6. **Implement only what the tests require**
-   - Avoid adding unrelated helpers or abstractions.
-   - Match the project's existing style.
-   - Keep the diff minimal and verifiable.
+## Default output structure
 
-## Example feature flow
+When useful, present work in this order:
 
-For a new feature that ingests requirement text and stores it:
+1. Requirement summary
+2. Assumptions / blockers
+3. Requirement-to-test coverage map
+4. Failing tests added
+5. Minimal implementation plan or change summary
+6. Verification result and remaining gaps
 
-1. Find existing classes: `Requirement`, `RequirementParser`, `RequirementRepository`, and `ClaudeSkill`.
-2. Decide whether to add a new parser method or a new repository behavior.
-3. Write tests for:
-   - parsing valid requirement text
-   - rejecting invalid requirement format
-   - preventing duplicate requirement titles
-   - storing parsed requirements and listing them
-4. Check if all requirement aspects are covered by the tests.
-5. If more test data is needed, request to enrich the unit tests with additional scenarios.
-6. Implement the feature to make those tests pass.
+## Rules
 
-## Skill rules
-
-- Do not build a Python library package unless the project already requires it.
-- Prefer documentation and instructions that map directly to the code changes.
-- Do not rewrite unrelated code or add abstractions beyond the feature.
-- Ask clarifying questions if the codebase already contains requirement-related classes but their intended use is ambiguous.
-- Always check if all requirements are covered by TDD before implementation.
-- Request to enrich unit tests if more data or edge cases are needed for complete coverage.
+- Prefer requirement traceability over cleverness.
+- Prefer one failing test at a time over large speculative test batches.
+- Prefer existing project terminology over inventing a parallel domain model.
+- Ask for clarification before implementation when a requirement conflict would make the wrong behavior likely.
+- Do not claim completion until tests relevant to the requirement pass, or until you clearly mark the work as blocked.

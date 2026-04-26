@@ -1,23 +1,23 @@
 ---
-name: requirement-to-tdd-skill
-description: A Claude skill repository for requirement-related development guidance, with a focus on locating requirement modules/classes, adding new feature classes, and writing unit tests first.
-license: MIT
+name: requirement-to-tdd
+description: Turn requirements, specs, PRDs, issues, or feature requests into a disciplined TDD workflow. Use this skill repository when an agent needs to locate requirement-related code, clarify acceptance criteria, map requirements to tests, write failing tests first, and implement the smallest verified change.
 ---
 
 # Requirement-to-TDD Skill
 
-This repository contains a Claude Code skill for building requirement-related functionality in an existing codebase.
+This repository contains a Claude-style skill for turning requirements into verified code changes with a test-first workflow.
 
-It is not a Python library package. Instead, it is a skill guide that helps a Claude agent:
+It is not a Python library package. It helps an agent:
 
-- identify requirement-related modules and classes
-- understand existing domain objects like `Requirement`, `RequirementRepository`, and `RequirementParser`
-- determine whether a new class is needed for a feature
-- create unit tests before implementation
-- keep changes minimal and aligned with the requested feature
+- normalize ambiguous requirements into testable clauses
+- locate requirement-related modules and existing implementation seams
+- map requirement clauses to tests before changing runtime code
+- prefer the smallest useful test layer and minimal implementation diff
+- report requirement coverage, assumptions, and remaining gaps
 
 ## How to use
 
 1. Copy `CLAUDE.md` into your project root.
 2. Use the `skills/requirement-skill/SKILL.md` file for instruction when implementing requirement-related features.
-3. Prefer test-first development: write the unit tests that capture the feature behavior before editing runtime code.
+3. Use `skills/requirement-skill/references/test-design.md` when the requirement needs decomposition or a clearer coverage map.
+4. Prefer test-first development: write the tests that capture the feature behavior before editing runtime code.
