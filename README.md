@@ -9,6 +9,7 @@ This repository is designed as a skill, not a Python library. It helps an agent 
 - `CLAUDE.md` — top-level skill metadata and repository guidance
 - `skills/requirement-skill/SKILL.md` — requirement-specific instructions for Claude agents
 - `skills/requirement-skill/references/test-design.md` — requirement decomposition and coverage patterns
+- `skills/requirement-skill/references/complex-features.md` — a lightweight playbook for multi-step and cross-module features
 - `EXAMPLES.md` — example workflow and test-first planning
 
 ## Purpose
@@ -18,9 +19,10 @@ Use this repository when you need to convert a requirement into a verified imple
 The skill helps:
 
 - restate and clarify requirements as testable behavior
+- scale the workflow from small changes to complex feature requirements
 - locate requirement-related modules and existing implementation seams
-- map requirement clauses to tests before editing production code
-- choose the smallest useful test layer
+- map requirement clauses and delivery slices to tests before editing production code
+- choose the smallest useful test strategy for the feature
 - keep implementation changes minimal and aligned with the requested behavior
 - report coverage, assumptions, and remaining gaps
 
@@ -29,16 +31,18 @@ The skill helps:
 1. Copy `CLAUDE.md` to the root of your project.
 2. Use `skills/requirement-skill/SKILL.md` as the instruction set for a Claude agent.
 3. Use `skills/requirement-skill/references/test-design.md` when you need help decomposing the requirement.
-4. Search the project for requirement-related code and determine where new functionality belongs.
-5. Write focused failing tests for the new feature first.
-6. Implement only the behavior needed to satisfy those tests.
+4. Use `skills/requirement-skill/references/complex-features.md` when the feature spans multiple modules, steps, or boundaries.
+5. Search the project for requirement-related code and determine where new functionality belongs.
+6. Write focused failing tests for the next useful slice.
+7. Implement only the behavior needed to satisfy those tests.
 
 ## Example workflow
 
 - Search the repository for existing requirement-related classes or packages.
-- Identify whether a parser, repository, validator, service, or domain model already exists.
-- Map each requirement clause to a planned test.
-- Add new tests for the requested feature before changing runtime code.
+- Classify whether the task is single-behavior or a complex feature.
+- Identify whether a parser, repository, validator, service, workflow, or domain model already exists.
+- Map each requirement clause and, for complex work, each delivery slice to planned tests.
+- Add tests for the next feature slice before changing runtime code.
 - Keep edits surgical and avoid unrelated rewrites.
 
 ## Notes
@@ -46,4 +50,5 @@ The skill helps:
 - This repository is not a runtime Python package.
 - The relevant implementation guidance lives in `skills/requirement-skill/SKILL.md`.
 - `skills/requirement-skill/references/test-design.md` contains decomposition and coverage guidance.
+- `skills/requirement-skill/references/complex-features.md` contains multi-slice planning guidance.
 - `EXAMPLES.md` contains usage examples and a test-first planning approach.

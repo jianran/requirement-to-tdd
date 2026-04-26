@@ -10,14 +10,15 @@ For each requirement, extract:
 - **Input** — text, fields, events, commands, or state
 - **Rule** — validation, transformation, storage, authorization, ordering, formatting, or side effect
 - **Output / observable effect** — return value, persisted record, emitted event, rendered text, or state transition
-- **Failure mode** — invalid input, duplicates, missing fields, unsupported states, or conflicts
+- **Failure mode** — invalid input, duplicates, missing fields, unsupported states, conflicts, or timeouts
 
 Treat each clause as a candidate test.
 
 ## 2. Choose the right test layer
 
 - **Unit** — pure parsing, validation, mapping, deduplication, state transitions, formatting
-- **Integration** — repository behavior, database persistence, serialization boundaries, service orchestration
+- **Integration** — repository behavior, database persistence, serialization boundaries, service orchestration, messaging boundaries
+- **Contract** — requests/responses or payload shape at an external boundary
 - **End-to-end** — only when the requirement depends on the full user-visible flow
 
 Start at the lowest layer that can prove the behavior.
@@ -32,6 +33,17 @@ Duplicate titles are prevented -> rejects_duplicate_requirement_title
 Stored requirements can be listed -> lists_saved_requirements
 ```
 
+For complex work, extend it with slices:
+
+```text
+Slice A: accept new requirement payload
+  - validates required fields
+  - stores normalized value
+Slice B: expose retrieval flow
+  - lists saved requirements
+  - preserves sort order
+```
+
 ## 4. Common requirement categories to cover
 
 ### Parsing / ingestion
@@ -40,6 +52,7 @@ Stored requirements can be listed -> lists_saved_requirements
 - malformed or partial input
 - whitespace / casing / delimiter variance
 - unknown fields
+- versioned or legacy payloads
 
 ### Validation
 
@@ -47,6 +60,7 @@ Stored requirements can be listed -> lists_saved_requirements
 - allowed values / ranges
 - cross-field rules
 - conflict handling
+- invariant preservation
 
 ### Storage / repository behavior
 
@@ -55,13 +69,22 @@ Stored requirements can be listed -> lists_saved_requirements
 - update
 - duplicate prevention
 - idempotency
+- migration or backfill effects
 
-### State transitions
+### State transitions / workflows
 
 - allowed transition
 - forbidden transition
 - unchanged state no-op
 - audit / timestamp / side-effect expectations
+- retries / eventual consistency behavior when relevant
+
+### External boundaries
+
+- request / response contract
+- serialization format
+- third-party failure or timeout handling
+- backward compatibility expectations
 
 ## 5. Ambiguity checklist
 
@@ -73,6 +96,8 @@ Ask or state an assumption when the requirement is unclear about:
 - case sensitivity
 - error shape or message expectations
 - backward compatibility constraints
+- migration behavior
+- async timing or retry expectations
 
 ## 6. Completion bar
 
@@ -81,5 +106,6 @@ Before calling the task done, check:
 - Every explicit requirement clause maps to at least one test.
 - The chosen test layer is no broader than necessary.
 - Negative cases exist where invalid behavior matters.
+- Complex features are split into independently testable slices.
 - The implementation diff does not exceed the scope of the requirement.
 - Test results or a concrete blocker are reported.
