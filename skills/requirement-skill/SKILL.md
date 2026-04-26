@@ -32,7 +32,13 @@ Use this skill to convert a requirement into verified code changes with a test-f
    - Clarify performance, security, backward compatibility, scalability, or rollout constraints when they could change the design.
    - Ask only when the uncertainty is likely to change the implementation materially; otherwise proceed with a narrow stated assumption.
 
-4. **Find the implementation seam**
+3.5 **Design system interactive flow and API specifications**
+   - Generate a high-level system interaction diagram showing component relationships, data flows, and user touchpoints.
+   - Design API specifications including endpoints, request/response formats, authentication, error codes, and rate limiting.
+   - Define data models, schemas, and validation rules for API payloads.
+   - Specify integration points with external systems, databases, or third-party services.
+   - Document state transitions, business rules, and edge cases in the API design.
+   - Ensure the design supports the clarified UX flow and technology decisions from the previous step.
    - Search for requirement-related modules, classes, tests, fixtures, APIs, schemas, and terminology already used by the codebase.
    - Prefer extending existing domain models, validators, services, handlers, repositories, or workflows over introducing new abstractions.
    - Add a new type only when the behavior does not fit an existing seam cleanly.
