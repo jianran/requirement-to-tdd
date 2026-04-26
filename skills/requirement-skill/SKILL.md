@@ -32,7 +32,7 @@ Use this skill to convert a requirement into verified code changes with a test-f
    - Clarify performance, security, backward compatibility, scalability, or rollout constraints when they could change the design.
    - Ask only when the uncertainty is likely to change the implementation materially; otherwise proceed with a narrow stated assumption.
 
-3.5 **Design system interactive flow and API specifications**
+4. **Design system interactive flow and API specifications**
    - Generate a high-level system interaction diagram showing component relationships, data flows, and user touchpoints.
    - Design API specifications including endpoints, request/response formats, authentication, error codes, and rate limiting.
    - Define data models, schemas, and validation rules for API payloads.
