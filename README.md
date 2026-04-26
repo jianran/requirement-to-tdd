@@ -2,71 +2,43 @@
 
 A Claude Code skill repository for requirement-related development guidance.
 
-This project is modeled after the `forrestchang/andrej-karpathy-skills` repository and provides a lightweight skill file for requirement module, class, and test-first feature work.
+This repository is designed as a skill, not a Python library. It provides task guidance for requirement-related feature work, based on the Karpathy-style Claude skill format.
 
 ## Contents
 
-- `CLAUDE.md` — top-level skill metadata and usage guidance
+- `CLAUDE.md` — top-level skill metadata and repository guidance
 - `skills/requirement-skill/SKILL.md` — requirement-specific instructions for Claude agents
 - `EXAMPLES.md` — example workflow and test-first planning
 
 ## Purpose
 
-Use this repository when you need to implement or extend requirement-related code without creating a Python library. The skill emphasizes finding existing domain classes, deciding whether a new class is needed, and writing unit tests first.
+Use this repository when you need to implement or extend requirement-related code in another project.
 
-A small Python package that demonstrates a Claude-style requirement parser and repository skill.
+The skill helps:
 
-## What this skill does
+- locate requirement-related modules and classes
+- identify existing domain objects like `Requirement`, `RequirementRepository`, or `RequirementParser`
+- decide whether a new class should be created for a feature
+- write unit tests first before implementation
+- keep changes minimal and aligned with the requested feature
 
-- Parses structured requirement text into a `Requirement` object
-- Validates titles, priorities, statuses, and tags
-- Stores requirements in a repository and prevents duplicate titles
-- Provides a `ClaudeSkill` adapter for ingesting requirement text and listing parsed requirements
+## How to use
 
-## Install
+1. Copy `CLAUDE.md` to the root of your project.
+2. Use `skills/requirement-skill/SKILL.md` as the instruction set for a Claude agent.
+3. Search the project for requirement-related code and determine where new functionality belongs.
+4. Write focused unit tests for the new feature first.
+5. Implement only the behavior needed to satisfy those tests.
 
-Create a virtual environment and install dependencies:
+## Example workflow
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -e .
-python -m pip install pytest
-```
+- Search the repository for existing requirement-related classes or packages.
+- Identify whether a parser, repository, or domain model already exists.
+- Add new tests for the requested feature before changing runtime code.
+- Keep edits surgical and avoid unrelated rewrites.
 
-## Usage
+## Notes
 
-Import and use the skill classes from `claude_skill`:
-
-```python
-from claude_skill.skill import ClaudeSkill
-
-skill = ClaudeSkill()
-requirement_text = """
-Title: Checkout flow
-Description: Add checkout flow for shopping cart.
-Priority: Medium
-Status: New
-Tags: ecommerce, checkout
-"""
-
-requirement = skill.ingest_requirement_text(requirement_text)
-print(requirement.summary())
-print(skill.list_requirements())
-```
-
-## Running tests
-
-Run the unit tests with:
-
-```bash
-python -m pytest
-```
-
-## Project layout
-
-- `claude_skill/requirements.py` — requirement model and repository
-- `claude_skill/skill.py` — parser and Claude skill interface
-- `tests/test_requirements.py` — unit tests for parsing and repository behavior
-- `pyproject.toml` — package metadata and test configuration
+- This repository is not a runtime Python package.
+- The relevant implementation guidance lives in `skills/requirement-skill/SKILL.md`.
+- `EXAMPLES.md` contains usage examples and a test-first planning approach.
