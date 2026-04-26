@@ -15,10 +15,22 @@ Use this skill to convert a requirement into verified code changes with a test-f
    - Treat each explicit rule, constraint, or acceptance criterion as something that must be covered by tests.
    - If ambiguity is blocking, ask a focused question. If it is not blocking, proceed with the smallest reasonable assumption and state it.
 
+1.5 **Clarify technology decisions**
+   - Ask about unclear technology choices: testing frameworks, programming languages, architecture patterns, or tools.
+   - Question integration points with existing systems, databases, APIs, or third-party services.
+   - Clarify performance, security, or scalability requirements that might affect technology choices.
+   - If technology decisions are ambiguous, ask specific questions rather than making assumptions.
+
 2. **Find the existing implementation seam**
    - Search for requirement-related modules, classes, tests, fixtures, or terminology already used by the codebase.
    - Prefer extending existing `Requirement`, `RequirementParser`, `RequirementRepository`, validators, services, or handlers over introducing new abstractions.
    - Add a new type only when the behavior does not fit an existing seam cleanly.
+
+2.5 **Clarify UX flow**
+   - Ask about user interaction patterns, navigation flows, or interface behaviors that aren't specified.
+   - Question error handling UX, loading states, feedback mechanisms, or accessibility requirements.
+   - Clarify user journey touchpoints, validation feedback, or state management expectations.
+   - If UX decisions are unclear, ask targeted questions about user experience rather than assuming defaults.
 
 3. **Design the thinnest useful test slice**
    - Choose the lowest test layer that proves the behavior: unit first, then integration, then end-to-end only if needed.
@@ -63,4 +75,6 @@ When useful, present work in this order:
 - Prefer one failing test at a time over large speculative test batches.
 - Prefer existing project terminology over inventing a parallel domain model.
 - Ask for clarification before implementation when a requirement conflict would make the wrong behavior likely.
+- Always ask about unclear technology decisions (frameworks, architecture, integration points) before making assumptions.
+- Always ask about unclear UX flow decisions (user interactions, error handling, navigation) before implementing.
 - Do not claim completion until tests relevant to the requirement pass, or until you clearly mark the work as blocked.
