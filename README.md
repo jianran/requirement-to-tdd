@@ -45,6 +45,24 @@ The skill helps:
 - Add tests for the next feature slice before changing runtime code.
 - Keep edits surgical and avoid unrelated rewrites.
 
+## Advanced pointers
+
+This skill is intentionally lighter than full spec-driven frameworks. Use it when you already have a requirement and want to drive it into TDD quickly, not when you need a full requirements → design → task-management system.
+
+- Need requirement decomposition or better coverage mapping? Start with `skills/requirement-skill/references/test-design.md`.
+- Need a cross-module, multi-step, or integration-heavy feature? Read `skills/requirement-skill/references/complex-features.md` first.
+- Need a full spec workflow with separate requirements, design, and task artifacts? Pair this skill with a broader spec-driven process before implementation.
+- Need hard quality gates, evidence capture, or adversarial review? Add those at the project workflow or CI layer rather than bloating this skill.
+
+## TODO / next improvements
+
+- Add a reference for rollout planning, feature flags, migrations, and backward-compatibility checks.
+- Add examples for async, event-driven, and external-integration-heavy features.
+- Add a compact verification report template for evidence capture and requirement traceability.
+- Add clearer guidance for when to use this skill vs a fuller spec-driven workflow.
+- Add an optional architecture and design-question checklist for high-risk features.
+- Add examples of contract-test strategy for API and schema boundaries.
+
 ## Notes
 
 - This repository is not a runtime Python package.
